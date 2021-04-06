@@ -1,0 +1,41 @@
+{% extends 'layers/base_template.html' %}
+{% load static %}
+
+{% block title %}
+    User Cab
+{% endblock %}
+
+    {% block logo %}
+        <a href="{% url 'accounts:userpage' %}" class="brand-logo">{{ request.user }}</a>
+    {% endblock %}
+
+    {% block links %}
+        <li><a href="{% url 'accounts:create-datastore' %}">Создать хранилище</a></li>
+        <li><a href="{% url 'accounts:logout' %}">Выйти</a></li>
+    {% endblock %}   
+
+
+{% block content %}
+
+    <h4 class="center-align blue-text text-darken-1">Загрузка слоя</h4>
+    <br>
+    <div class="row">
+        <form method="POST" action="#" enctype="multipart/form-data" class="col s6">
+            <div class="file-field input-field">
+              <div class="btn blue darken-1">
+                <span>File</span>
+                <input type="file" name="upload_file">
+              </div>
+              <div class="file-path-wrapper">
+                <input id="fileinp" class="file-path validate" placeholder="Укажите архив .zip с файлами shp, shx, prj, dbf " type="text">
+              </div>
+              <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action">Создать
+                <i class="material-icons right">data_usage</i>
+              </button>
+            </div>
+          </form>
+        <div style="background-color:blue; height:500px" class="col s6">
+
+        </div>
+    </div>
+{% endblock %}

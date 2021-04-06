@@ -1,0 +1,26 @@
+
+<h6>Загрузка слоя</h6>
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12 m4 l4">
+                    <label for="layer_name">Название слоя</label>
+                    <input id="layer_name" type="text" name="layer_name" class="validate">
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <textarea id="abstract" name="abstract" class="materialize-textarea"></textarea>
+                    <label for="abstract">Описание</label>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                          <span>shp</span>
+                          <input type="file" name="shp" multiple>
+                        </div>
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text" placeholder="Укажите shp, shx, prj и dbf " name="shp_name">
+                        </div>
+                      </div>
+                </div>
+            </div>

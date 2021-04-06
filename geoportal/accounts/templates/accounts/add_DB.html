@@ -1,0 +1,41 @@
+{% extends 'layers/base_template.html' %}
+{% load static %}
+
+{% block title %}
+    User Cab
+{% endblock %}
+
+    {% block logo %}
+        <a href="{% url 'accounts:userpage' %}" class="brand-logo">{{ request.user }}</a>
+    {% endblock %}
+
+    {% block links %}
+        <li><a href="{% url 'accounts:add-layer' %}">Загрузить слой</a></li>
+        <li><a href="{% url 'accounts:logout' %}">Выйти</a></li>
+    {% endblock %}   
+
+
+{% block content %}
+
+    <h4 class="center-align blue-text text-darken-1">Создание хранилища</h4>
+    <br>
+    <div class="row">
+        <form method="POST" class="col s6">
+            <div class="row">
+                <div class="input-field col s12 ">
+
+                    <input id="db_name" name="db_name" type="text" class="validate blue-text text-darken-1">
+                    <label class="blue-text text-darken-1" for="db_name">Название хранилища</label>
+
+                    <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action">Создать
+                        <i class="material-icons right">data_usage</i>
+                    </button>
+        
+                </div>
+            </div>
+        </form>
+        <div style="background-color:blue; height:500px" class="col s6">
+
+        </div>
+    </div>
+{% endblock %}

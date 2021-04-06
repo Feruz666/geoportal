@@ -1,0 +1,51 @@
+
+nav{
+    height: 65px;
+    padding: 0 100px;
+}
+
+.container{
+    height: 1800px;
+}
+
+#user_greeting {
+    font-size: 20px;
+}
+
+#map { 
+    border: 5px solid #1e88e5;
+    border-radius: 10px;
+    width: 945px;
+    height: 500px;
+}
+
+.input-field label {
+    color: #1e88e5;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #1e88e5;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #1e88e5;
+}
+
+#fileinp::placeholder{
+    color: #1b74c2;
+}

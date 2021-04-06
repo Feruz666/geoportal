@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Materialize CSS styles -->
+    <link
+      href="{% static 'materialize_css/materialize.css' %}"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+
+    
+
+    <!-- CSS styles -->
+    <link
+      href="{% static 'styles.css' %}"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+
+    <!-- Materialize JS scripts -->
+    <!-- Materialize JS -->
+    <script src=" {% static 'materialize_js/materialize.js' %} "></script>
+    <script defer src=" {% static 'javascript/scripts.js' %} "></script>
+
+
+
+
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+<body>
+
+    
+    <nav class=" blue darken-1">
+        <div class="nav-wrapper">
+            {% block logo %}
+            {% endblock %}
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% block links %}
+            {% endblock %}
+        </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+</body>
+</html>
