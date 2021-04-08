@@ -74,7 +74,7 @@ def create_datastore(request):
         db_name = request.POST.get("db_name")
         
         try:
-            con = psycopg2.connect( database="layers" ,user="postgres", password="admin", host="127.0.0.1", port="5432")
+            con = psycopg2.connect( database="gis_layers" ,user="postgres", password="admin", host="127.0.0.1", port="5432")
             print("Connected")
         except Exception:
             print("err")
