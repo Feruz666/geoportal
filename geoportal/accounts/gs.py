@@ -1,4 +1,3 @@
-from geoserver.catalog import Catalog
 import requests
 import json
 from geo.Geoserver import Geoserver
@@ -7,7 +6,6 @@ from requests.auth import HTTPBasicAuth
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import time
-import config
 
 # cat = Catalog("http://localhost:8080/geoserver/", username="admin", password="geoserver")
 # topp = cat.get_workspace("TEEEEEEST")
@@ -41,11 +39,11 @@ data = {
 
 
 data_iter = datastores['dataStores']['dataStore']
-ds = ""
+ds_list = []
 for i in data_iter:
-    ds = i['name']
+    ds_list.append(i['name'])
 
-print(type( ds))
+print(*ds_list)
 # workspaces = geo.get_workspaces()
 # layers = geo.get_layers()
 # print(layers)

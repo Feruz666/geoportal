@@ -19,7 +19,7 @@ query = " SELECT ST_AsGeoJSON(nyc_roads.*) from nyc_roads; "
 try:
     cursor.execute(query)
     results = cursor.fetchall()
-    print("Gor Data!!!")
+    print("Got Data!!!")
 except Exception:
     print("Error")
     

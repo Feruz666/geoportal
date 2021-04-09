@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings 
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 
 from .forms import CreateUserForm
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
@@ -66,6 +69,41 @@ def logoutUser(request):
 @login_required(login_url="accounts:login")
 def user_cab(request):
     return render(request, "accounts/user_cab.html")
+
+
+class CreateGetDataStore(View):
+    def __init__(self):
+        self.geo = Geoserver('http://127.0.0.1:8080/geoserver', username='admin', password='geoserver')
+        self.user_workspace = None
+        self.datastores = []
+        self.template = "accounts/add_DB.html"
+
+    
+    def post(self, request):
+        pass
+
+
+    @method_decorator(login_required)
+    def get(self, request):
+        if request.method == "GET":
+            user = request.user
+            if user is not None:
+                try:
+                    self.user_workspace = self.geo.get_workspace(workspace=user)
+                    self.datastores = self.geo.get_datastores(workspace=self.user_workspace)
+
+                    datastores = self.geo.get_datastores(workspace=user) 
+                    data_iter = datastores['dataStores']['dataStore']
+            
+                    for i in data_iter:
+                        datast = i['name']    
+
+
+                    return  render(request, self.template)
+
+                except Exception:
+                    print("Something goes wrong")
+
 
 @csrf_exempt
 @login_required(login_url="accounts:login")
