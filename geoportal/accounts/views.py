@@ -233,7 +233,3 @@ def addLayer(request):
             print(f"не удалось сохранить .zip")
     return render(request, "accounts/upload_shape.html")
     
-
-
-def main_page(request):
-    return render(request, "accounts/main.html")

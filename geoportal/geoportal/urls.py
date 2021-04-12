@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include("accounts.urls")),
     path('geoinf/', include("geoinformation.urls")),
+    path('', include("main.urls")),
+
 ]
