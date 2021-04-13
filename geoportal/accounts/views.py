@@ -75,12 +75,19 @@ class CreateGetDataStore(View):
     def __init__(self):
         self.geo = Geoserver('http://127.0.0.1:8080/geoserver', username='admin', password='geoserver')
         self.user_workspace = None
-        self.datastores = []
-        self.template = "accounts/add_DB.html"
+        self.datastores = None
+        self.template = "accounts/add_DB2.html"
 
-    
+
+    @method_decorator(login_required)
     def post(self, request):
-        pass
+        if request.method == "POST":
+            user = request.user
+            if user is not None:
+                try:
+                    pass
+                except Exception:
+                    pass
 
 
     @method_decorator(login_required)
@@ -90,19 +97,21 @@ class CreateGetDataStore(View):
             if user is not None:
                 try:
                     self.user_workspace = self.geo.get_workspace(workspace=user)
-                    self.datastores = self.geo.get_datastores(workspace=self.user_workspace)
+                    self.datastores = self.geo.get_datastores(workspace=user)
 
-                    datastores = self.geo.get_datastores(workspace=user) 
-                    data_iter = datastores['dataStores']['dataStore']
-            
+                    
+                    data_iter = self.datastores["dataStores"]["dataStore"]
+                    ds_list = []
                     for i in data_iter:
-                        datast = i['name']    
-
-
-                    return  render(request, self.template)
+                        ds_list.append(i["name"])
+                    print(ds_list)
+                        
+                    return  render(request, self.template, context={"ds_list": ds_list})
 
                 except Exception:
                     print("Something goes wrong")
+            
+        return render(request, self.template)
 
 
 @csrf_exempt

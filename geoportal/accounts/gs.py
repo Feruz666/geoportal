@@ -38,12 +38,14 @@ data = {
 }
 
 
-data_iter = datastores['dataStores']['dataStore']
+
+
+data_iter = datastores["dataStores"]["dataStore"]
 ds_list = []
 for i in data_iter:
-    ds_list.append(i['name'])
+    ds_list.append(i["name"])
 
-print(*ds_list)
+print(ds_list)
 # workspaces = geo.get_workspaces()
 # layers = geo.get_layers()
 # print(layers)

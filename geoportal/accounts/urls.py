@@ -12,7 +12,7 @@ urlpatterns = [
     path('logout/', logoutUser, name = 'logout'),   
     path('user-cab/', user_cab, name = 'userpage'),
     path('user-cab/create-datastore/', create_datastore, name = 'create-datastore'),
-    # path('user-cab/create-datastore/', CreateGetDataStore.as_view()),
+    path('user-cab/create-datastore2/', CreateGetDataStore.as_view()),
     path('user-cab/add_layer/', addLayer, name = 'add-layer'),
     
 ]

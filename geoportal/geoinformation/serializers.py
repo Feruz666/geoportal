@@ -13,4 +13,9 @@ class SensorsDataSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = SensorsData
-        fields = ("created", "humidity", "temperature", "CO2")
+        fields = (
+            "created", 
+            "humidity", 
+            "temperature", 
+            "CO2"
+            )
