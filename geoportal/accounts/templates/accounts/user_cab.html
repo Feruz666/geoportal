@@ -6,7 +6,11 @@
     {% endblock %}
 
     {% block logo %}
-      <a href="{% url 'accounts:userpage' %}" class="brand-logo">{{ request.user }}</a>
+      {{ request.user }}
+    {% endblock %}
+
+    {% block email %}
+      {{ request.email }}
     {% endblock %}
 
     {% block links %}

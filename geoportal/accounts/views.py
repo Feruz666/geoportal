@@ -55,6 +55,7 @@ def loginPage(request):
 
             if user is not None:
                 login(request, user)
+                print(user)
                 return redirect("accounts:userpage")
             else:
                 messages.info(request, "Ошибка при вводе логина или пароля")
