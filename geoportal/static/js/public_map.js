@@ -8,11 +8,12 @@ var map = new mapboxgl.Map({
   bearing: 0,
   style: "mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y",
 });
+map.addControl(new mapboxgl.NavigationControl());
 
-function change_base_layer(){
-    if(document.getElementById("layer").value == "street"){
-        map.setStyle("mapbox://styles/mapbox/streets-v11");
-    }else{
-        map.setStyle("mapbox://styles/mapbox/satellite-v9");
-    }
-}
+// function change_base_layer(){
+//     if(document.getElementById("layer").value == "street"){
+//         map.setStyle("mapbox://styles/mapbox/streets-v11");
+//     }else{
+//         map.setStyle("mapbox://styles/mapbox/satellite-v9");
+//     }
+// }
