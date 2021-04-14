@@ -5,3 +5,7 @@ from django.shortcuts import render
 
 def main_page(request):
     return render(request, "main/main.html")
+
+
+def landing(request):
+    return render(request, "main/landing.html")

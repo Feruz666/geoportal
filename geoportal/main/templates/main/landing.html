@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'materialize_css/materialize.css'%}">
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <title>
+      Neuromaps
+    </title>
+    <style>
+
+        html, body, .my-wrapper {
+        height: 100%;
+        }
+
+        body{
+            font-family: 'Zen Dots', cursive;
+        }
+
+       
+        #vanta-canvas{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container{
+            backdrop-filter: blur(3px);
+            border-color: rgb(175, 2, 255);
+            border-width: 5px;
+        }
+
+        a{
+            opacity: 1;
+        }
+
+        nav{
+            padding: 0px 100px;
+            background-color: rgba(0,0,0,0);
+        }
+
+        h1{
+            font-size: 105px;
+            background: -webkit-linear-gradient(rgb(248, 46, 46), rgb(183, 0, 255));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ul li a{
+            font-size: 24px;
+        }
+        
+        
+    </style>
+  </head>
+  <body class="valign-wrapper">
+    
+    <div id="vanta-canvas"></div>
+
+    
+
+    
+
+    <div style="height: 1000px; " class="container">
+        <div class="row">
+            <div id="center-block" class="col s12 blue-text text-darken-2">
+                <nav>
+                    <div class="nav-wrapper">
+                      <a href="#" class="brand-logo">neuromaps</a>
+                      <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="badges.html">About project</a></li>
+                        <li><a href="sass.html">Maps</a></li>
+                        <li><a href="collapsible.html">Services</a></li>
+                      </ul>
+                    </div>
+                  </nav>
+            </div>
+        </div>   
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col s12">
+                <h1 class="center-align purple-text text-accent-2">NEUROMAPS</h1>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col s12">
+                <p class="center-align">
+                    <a class="purple btn-large purple pulse">GET STARTED</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="{% static 'js/three.r119.min.js'  %}"></script>
+    <script src="{% static 'js/vanta.globe.min.js' %}"></script>
+    <script>
+    VANTA.GLOBE({
+    el: "#vanta-canvas",
+    mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00
+    })
+    </script>
+    
+  </body>
+</html>
