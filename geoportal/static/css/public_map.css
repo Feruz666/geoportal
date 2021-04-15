@@ -50,3 +50,8 @@
 .map-overlay-inner button:hover {
   box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
+
+#public_map{
+  width: 100%;
+  height: 100vh;
+}
