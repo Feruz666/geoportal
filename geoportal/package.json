@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "@mapbox/mapbox-gl-draw": "^1.2.2",
+    "@supermap/iclient-mapboxgl": "^10.1.2",
+    "css-loader": "^5.2.1",
+    "jquery": "^3.6.0",
+    "mapbox": "*",
+    "mapbox-gl": "^1.13.1",
+    "mapbox-gl-compare": "^0.4.0",
+    "mapbox-gl-style-switcher": "^1.0.9",
+    "material-ui": "^0.20.2",
+    "materialize": "^1.0.0",
+    "safe-buffer": "^5.2.1",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0"
+  },
+  "devDependencies": {
+    "mini-css-extract-plugin": "^1.4.1",
+    "path-browserify": "^1.0.1"
+  }
+}
