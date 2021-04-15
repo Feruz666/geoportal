@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cuprum&display=swap" rel="stylesheet">
     <script src="{% static 'javascript/scripts.js' %}"></script>
     <script src="{% static 'materialize_js/materialize.js' %}"></script>
+    <script src="{% static 'granim.js-2.0.0/dist/granim.js' %}"></script>
     <title>
       Neuromaps
     </title>
@@ -136,11 +137,7 @@
             font-family: 'Zen Dots', cursive;
         }
 
-        /* #mainlogoabs{
-            background: -webkit-linear-gradient(rgb(248, 46, 46), rgb(183, 0, 255));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        } */
+        
         .btn-large{
             font-size: 25px;
         }
@@ -153,6 +150,10 @@
             font-size: 35px;
         }
 
+        #canvas-basic {
+            width: 80%;
+            height: 500px;
+        }
 
     </style>
   </head>
@@ -251,9 +252,7 @@
             <div class="row center-align">
                 <div class="col s12">
                     <p class="white-text">
-                        <div class="" style="background-color: blueviolet; width: 80%; margin: auto; height: 500px;">
-
-                        </div>
+                        <canvas id="canvas-basic"></canvas>
                         
                         <div class="row">
                             <div class="col s12">
@@ -318,7 +317,23 @@
         minWidth: 200.00,
         scale: 1.00,
         scaleMobile: 1.00
-        })
+        });
+
+
+        var granimInstance = new Granim({
+            element: '#canvas-basic',
+            direction: 'left-right',
+            isPausedWhenNotInView: true,
+            states : {
+                "default-state": {
+                    gradients: [
+                        ['#ff9966', '#ff5e62'],
+                        ['#00F260', '#0575E6'],
+                        ['#e1eec3', '#f05053']
+                    ]
+                }
+            }
+        });
     </script>
     
   </body>
