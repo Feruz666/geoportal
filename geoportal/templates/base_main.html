@@ -12,33 +12,19 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static 'css/public_map.css' %}" rel="stylesheet" />
 
-    <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css'%}">
-    <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{% static 'vendors/flag-icon-css/css/flag-icon.min.css'%}">
-    <link rel="stylesheet" href="{% static 'vendors/jvectormap/jquery-jvectormap.css'%}">
-    <!-- End plugin css for this page -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{% static 'css/demo/style.css' %}">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 
-    <!-- Materialize JS scripts -->
-    <!-- Materialize JS -->
-    <!-- <script src=" {% static 'materialize_js/materialize.js' %} "></script>
-    <script defer src=" {% static 'javascript/scripts.js' %} "></script> -->
+    
     <title>
       {% block title %}
       {% endblock %}
     </title>
   </head>
   <body>
-    <div id="public_map"></div>
+    <div id="map"></div>
     <script src="{% static 'js/index.js' %}"></script>
-    <script src="{% static 'js/material.js' %}"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <!-- <script src="{% static 'js/material.js' %}"></script> -->
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script> -->
     <script src="{% static 'js/public_map.js' %}"></script>
   </body>
 </html>
