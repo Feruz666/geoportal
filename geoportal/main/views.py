@@ -10,4 +10,9 @@ def main_page(request):
 def landing(request):
     return render(request, "main/landing.html")
 
+<<<<<<< HEAD
 
+=======
+def leaflet(request):
+    return render(request, "main/leaflet.html")
+>>>>>>> 866a128e1db3adb586d36193168aa7db0835df47
