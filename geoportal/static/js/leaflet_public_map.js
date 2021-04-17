@@ -1,6 +1,6 @@
 var map = L.map("map", {
   zoomControl: false,
-}).setView([55.98696, 35.21833], 16);
+}).setView([57.137705, 65.567548], 12);
 
 var mapbox_s = L.tileLayer(
     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
@@ -55,10 +55,14 @@ let ndvi = L.tileLayer
   .addTo(map);
 
 map.addEventListener("mousemove", (event) => {
-  let lat = Math.round(event.latlng.lat);
-  let lng = Math.round(event.latlng.lng);
-  var cor = document.getElementById("coordinates");
-  cor.innerHTML = lat + ", " + lng;
+  let lat = event.latlng.lat;
+  let lng = event.latlng.lng;
+  var x = document.getElementById("x");
+  var y = document.getElementById("y");
+  var z = document.getElementById("z");
+  x.value = lat; 
+  y.value = lng;
+  z.value = map.getZoom();
 });
 
 let ndre = L.tileLayer
@@ -90,15 +94,17 @@ var overlays = {
 var baseLayers = {};
 
 var obj = {
-  "MapBox-Streets": mapbox_s,
-  "MapBox-темная основа": m_d,
-  "MapBox-спутник": m_s,
+  "Улицы": mapbox_s,
+  "Улицы (темная)": m_d,
+  "Спутник": m_s,
   OpenStreetMap: osm,
 };
 
 baseLayers = Object.assign(baseLayers, obj);
 
-L.control.layers(baseLayers, overlays).addTo(map);
+L.control.layers(baseLayers, overlays,{
+    collapsed: false
+}).addTo(map);
 
 L.control
   .zoom({
@@ -148,3 +154,5 @@ map.pm.Toolbar.createCustomControl({
   },
 });
 m_d.addTo(map);
+setTimeout(()=>{map.flyTo([55.98696, 35.21833], 17);}, 1000);
+
