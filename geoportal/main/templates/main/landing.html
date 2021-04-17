@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% load static %}
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
     
     <link rel="stylesheet" href="{% static 'materialize_css/materialize.css'%}">
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
@@ -14,7 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cuprum&display=swap" rel="stylesheet">
     <script src="{% static 'javascript/scripts.js' %}"></script>
     <script src="{% static 'materialize_js/materialize.js' %}"></script>
-    <script src="{% static 'granim.js-2.0.0/dist/granim.js' %}"></script>
     <title>
       Neuromaps
     </title>
@@ -165,9 +167,25 @@
             background-color: rgba(0,0,0,0);
         }
 
+        #section_maps{
+            padding-top: 45%;
+        }
+
+
+        #map { 
+            height: 700px;
+            width: 100%; 
+        }
+
     </style>
   </head>
   <body>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
     
     <div id="vanta-canvas"></div>
     <div id="progressbar"></div>
@@ -215,41 +233,17 @@
         <br>
         <br>
         <br>
+
         <div class="row">
             <div class="col s12">
                 <h3>
                     <p id="centerlogo" class="center-align">
-                        <a href="#about" class="purple btn-large purple pulse">НАЧАТЬ</a>
+                        <a href="#maps" class="purple btn-large purple pulse">GET STARTED</a>
                     </p>
                 </h3>
             </div>
         </div>
         
-
-        <!-- Section about project -->
-        <div id="section_about_project">
-            <div class="row">
-                <div class="col s12">
-                <div id="about" class="section scrollspy">
-                    <h2 class="center-align white-text">О проекте</h2>
-                </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <p class="white-text center-align">
-                        Информационная система для сбора и хранения геопространственной информации.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime voluptates non, magnam impedit ut ea qui repellat, at labore sint doloremque nam minus laboriosam neque, dolores natus? Eligendi, nobis eos! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum voluptates vitae non ipsum obcaecati harum maiores modi voluptas, voluptatum in mollitia fugit accusamus ratione minus porro impedit quibusdam repudiandae velit.
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col s12 offset-s2">
-                    <img class="materialboxed" width="800" src="{% static 'images/Hyperspectral/image1.jpg' %}">
-                </div>
-            </div>
-        </div>
 
         <br>
         <br>
@@ -260,25 +254,28 @@
         <div id="section_maps">
             <div class="row">
                 <div class="col s12">
-                <div id="maps" class="section scrollspy">
+                <div>
                     <h2 class="center-align white-text">Карты</h2>
+                    <div id="maps" class="section scrollspy">
+                    </div>
                 </div>
                 </div>
             </div>
             <div class="row center-align">
                 <div class="col s12">
                     <p class="white-text">
-                        <canvas id="canvas-basic"></canvas>
+                        <div id="map"></div>
                         
                         <div class="row">
                             <div class="col s12">
                                 <h3>
                                     <p class="center-align">
-                                        <a class="purple btn-large purple pulse">Подробнее</a>
+                                        <a href="#" class="purple btn-large purple pulse">Подробнее</a>
                                     </p>
                                 </h3>
                             </div>
                         </div>
+                        
 
                     </p>
                 </div>
@@ -375,20 +372,15 @@
         scaleMobile: 1.00
         });
 
+    </script>
 
-        var granimInstance = new Granim({
-            element: '#canvas-basic',
-            direction: 'left-right',
-            isPausedWhenNotInView: true,
-            states : {
-                "default-state": {
-                    gradients: [
-                        ['#ff9966', '#ff5e62'],
-                        ['#00F260', '#0575E6'],
-                        ['#e1eec3', '#f05053']
-                    ]
-                }
-            }
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidHJvbXNvIiwiYSI6ImNrbHFlaml1eDFiczUybmw2dHBmaXV5cHQifQ.dMP0Ehf9s1AWEmvgYJZdcg';
+        var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [-74.5, 40], // starting position [lng, lat]
+        zoom: 9 // starting zoom
         });
     </script>
     

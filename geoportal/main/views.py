@@ -9,3 +9,5 @@ def main_page(request):
 
 def landing(request):
     return render(request, "main/landing.html")
+
+
