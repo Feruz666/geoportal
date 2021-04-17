@@ -270,7 +270,7 @@
                             <div class="col s12">
                                 <h3>
                                     <p class="center-align">
-                                        <a href="#" class="purple btn-large purple pulse">Подробнее</a>
+                                        <a href="{% url 'main:leaflet' %}" class="purple btn-large purple pulse">Подробнее</a>
                                     </p>
                                 </h3>
                             </div>
@@ -378,9 +378,11 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoidHJvbXNvIiwiYSI6ImNrbHFlaml1eDFiczUybmw2dHBmaXV5cHQifQ.dMP0Ehf9s1AWEmvgYJZdcg';
         var map = new mapboxgl.Map({
         container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v11', // style URL
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+        style: 'mapbox://styles/mapbox/satellite-v9', // style URL
+        // style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [35.21049499511719,
+          55.98628358606624], // starting position [lng, lat]
+        zoom: 14 // starting zoom
         });
     </script>
     
