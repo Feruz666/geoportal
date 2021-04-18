@@ -148,7 +148,7 @@ map.pm.addControls({
 map.pm.Toolbar.changeControlOrder(['drawCircle', 'drawRectangle', 'removalMode', 'editMode']);  
 
 map.pm.setPathOptions({  
-  color: 'DarkViolet',  
+  color: 'rgb(197, 10, 208)',  
   fillColor: 'grey',  
   fillOpacity: 0.4,  
 });
