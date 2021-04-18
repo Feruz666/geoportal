@@ -1,6 +1,6 @@
 var map = L.map("map", {
   zoomControl: false,
-}).setView([57.137705, 65.567548], 12);
+}).setView([55.98696, 35.21833], 17);
 
 var mapbox_s = L.tileLayer(
     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
@@ -46,11 +46,13 @@ var mapbox_s = L.tileLayer(
     }
   );
 
-let ndvi = L.tileLayer
-  .wms("https://geoportal.utmn.ru/geoserver/wms?", {
+let ndvi = L.nonTiledLayer
+  .wms("http://localhost:8080/geoserver/wms?", {
     layers: "tiff:rededge-ndvi",
     format: "image/png",
     transparent: true,
+    pane: 'tilePane',
+    tiled: false,
   })
   .addTo(map);
 
@@ -65,23 +67,26 @@ map.addEventListener("mousemove", (event) => {
   z.value = map.getZoom();
 });
 
-let ndre = L.tileLayer
-  .wms("https://geoportal.utmn.ru/geoserver/wms?", {
+let ndre = L.nonTiledLayer
+  .wms("http://localhost:8080/geoserver/wms?", {
     layers: "tiff:rededge-ndre",
     format: "image/png",
     transparent: true,
+    tiled: false,
   });
-let rgb = L.tileLayer
-  .wms("https://geoportal.utmn.ru/geoserver/wms?", {
+let rgb = L.nonTiledLayer
+  .wms("http://localhost:8080/geoserver/wms?", {
     layers: "tiff:rededge-rgb",
     format: "image/png",
     transparent: true,
+    tiled: false,
   });
-let rgb_sony = L.tileLayer
-  .wms("https://geoportal.utmn.ru/geoserver/wms?", {
+let rgb_sony = L.nonTiledLayer
+  .wms("http://localhost:8080/geoserver/wms?", {
     layers: "tiff:sony_rx",
     format: "image/png",
     transparent: true,
+    tiled: false,
   });
 var overlays = {
   NDVI: ndvi,
