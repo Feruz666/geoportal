@@ -129,17 +129,12 @@
         ul li a{
             font-size: 24px;
         }
-        li{
-            font-family: 'Cuprum', sans-serif;
-
-        }
+        
 
         #section_about_project{
             padding-top: 50%;
         }
-        p{
-            font-family: 'Cuprum', sans-serif;
-        }
+        
 
         #centerlogo{
             font-family: 'Zen Dots', cursive;
@@ -201,9 +196,9 @@
                     <div class="nav-wrapper">
                       <a href="#" class="brand-logo">neuromaps</a>
                       <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="#about">О проекте</a></li>
-                        <li><a href="#maps">Карты</a></li>
-                        <li><a href="#services">Сервисы</a></li>
+                        <li><a href="#about">About project</a></li>
+                        <li><a href="#maps">Maps</a></li>
+                        <li><a href="#services">Services</a></li>
                       </ul>
                     </div>
                   </nav>
@@ -221,7 +216,7 @@
                 <div id="mainlogo">
                     <h1 class="center-align purple-text text-accent-2">NEUROMAPS</h1>
                     <p>
-                        <h4 id="mainlogoabs" class="white-text">Облачная ГИС для фитосанитарного мониторинга в сельском и лесном хозяйстве</h4>
+                        <h5 id="mainlogoabs" class="white-text center-align">Cloud GIS for phytosanitary monitoring in agriculture and forestry</h5>
                     </p>
                 </div>
             </div>
@@ -238,7 +233,7 @@
             <div class="col s12">
                 <h3>
                     <p id="centerlogo" class="center-align">
-                        <a href="#maps" class="purple btn-large purple pulse">GET STARTED</a>
+                        <a href="{% url 'main:leaflet' %}" class="purple btn-large purple pulse">GET STARTED</a>
                     </p>
                 </h3>
             </div>
