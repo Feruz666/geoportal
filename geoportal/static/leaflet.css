@@ -287,7 +287,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	display: block;
 	text-align: center;
 	text-decoration: none;
-	color: black;
+	color: rgb(255, 255, 255);
 	}
 .leaflet-bar a,
 .leaflet-control-layers-toggle {
