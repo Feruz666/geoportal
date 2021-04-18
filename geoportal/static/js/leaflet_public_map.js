@@ -144,6 +144,17 @@ map.pm.addControls({
   oneBlock: false,
 });
 
+
+map.pm.Toolbar.changeControlOrder(['drawCircle', 'drawRectangle', 'removalMode', 'editMode']);  
+
+map.pm.setPathOptions({  
+  color: 'DarkViolet',  
+  fillColor: 'grey',  
+  fillOpacity: 0.4,  
+});
+
+
+
 map.pm.Toolbar.createCustomControl({
   name: "Шторка",
   block: "custom",
@@ -154,5 +165,6 @@ map.pm.Toolbar.createCustomControl({
   },
 });
 m_d.addTo(map);
-setTimeout(()=>{map.flyTo([55.98696, 35.21833], 17);}, 1000);
+// setTimeout(()=>{map.flyTo([55.98696, 35.21833], 17);}, 1000);
+
 
