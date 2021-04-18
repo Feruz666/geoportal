@@ -279,8 +279,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	}
 .leaflet-bar a,
 .leaflet-bar a:hover {
-	background-color: #fff;
-	border-bottom: 1px solid #ccc;
+	background-color: rgb(197, 10, 208);
+	border-bottom: 1px solid rgb(204, 204, 204);
 	width: 26px;
 	height: 26px;
 	line-height: 26px;
@@ -370,8 +370,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	}
 .leaflet-control-layers-expanded {
 	padding: 6px 10px 6px 6px;
-	color: #333;
-	background: #fff;
+	color: rgb(255, 255, 255);;
+	background: -webkit-linear-gradient(rgb(248, 46, 46), rgb(183, 0, 255));
 	}
 .leaflet-control-layers-scrollbar {
 	overflow-y: scroll;
