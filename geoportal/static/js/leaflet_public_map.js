@@ -88,9 +88,18 @@ let rgb_sony = L.nonTiledLayer
     transparent: true,
     tiled: false,
   });
+
+  let neuro = L.nonTiledLayer
+  .wms("http://localhost:8080/geoserver/wms?", {
+    layers: "tiff:neuro",
+    format: "image/png",
+    transparent: true,
+    tiled: false,
+  });
 var overlays = {
   NDVI: ndvi,
   NDRE: ndre,
+  NeuroForest: neuro,
   "Естественные цвета": rgb,
   "Естественные цвета высокого разрешения": rgb_sony,
   // "Продук нейронной сети": neuro,
