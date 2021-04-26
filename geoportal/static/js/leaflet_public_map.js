@@ -165,6 +165,6 @@ map.pm.Toolbar.createCustomControl({
   },
 });
 m_d.addTo(map);
-// setTimeout(()=>{map.flyTo([55.98696, 35.21833], 17);}, 1000);
+setTimeout(()=>{map.flyTo([55.98696, 35.21833], 17);}, 1000);
 
 
