@@ -15,12 +15,12 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from requests.auth import HTTPBasicAuth
 from geo.Geoserver import Geoserver
 
+from .configs import *
 
 import psycopg2
 import os
 import json
 import requests
-import pathlib
 
 
 @csrf_exempt
@@ -71,23 +71,94 @@ def user_cab(request):
     return render(request, "accounts/user_cab.html")
 
 
+def postgre_con_create_db(db_name):
+        try:
+            con = psycopg2.connect(database="gis_layers", user=USER, password=PASSWORD, host=HOST, port=PORT)
+            print("Connected to the Postgre")
+        except Exception:
+            print("error while connecting to Postgre")
+
+        con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        cursor = con.cursor()
+        sqlCreateDatabase = "CREATE DATABASE "+db_name+";"
+
+        cursor.execute(sqlCreateDatabase)
+        print("DataBase created")
+
+        try:
+            con = psycopg2.connect( database=db_name ,user=USER, password=PASSWORD, host=HOST, port=PORT)
+            print(f"Connected to {db_name} DB")
+        except Exception:
+            print("Unable to connect to the database")
+        con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        
+        cursor = con.cursor()    
+        ext = "postgis"
+        ext_query = "CREATE EXTENSION "+ext+";"
+
+        try:
+            cursor.execute(ext_query)
+            print("extension created")
+        except:
+            print("extension didnt creat")
+        
+        con.commit()
+        cursor.close()
+        con.close()
+
 class CreateGetDataStore(View):
     def __init__(self):
-        self.geo = Geoserver('http://127.0.0.1:8080/geoserver', username='admin', password='geoserver')
+        self.geo = GEO
         self.user_workspace = None
         self.datastores = None
-        self.template = "accounts/add_DB2.html"
+        self.template = "accounts/add_DB.html"
+        self.default_db = "gis_layers"
+        self.error_template = 0
 
 
     @method_decorator(login_required)
     def post(self, request):
         if request.method == "POST":
             user = request.user
+            db_name = request.POST.get("db_name")
             if user is not None:
                 try:
-                    pass
+                    postgre_con_create_db(db_name)
+
+
+                    ws = user
+                    r_url = "http://localhost:8080/geoserver/rest/workspaces/{}/datastores"
+                    formatted_url = r_url.format(ws)
+                    r_headers = {'Content-type': 'application/json',  # Определение типа данных
+                            'Accept': 'text/plain',
+                            'Content-Encoding': 'utf-8'}
+                    datas = {
+                        "dataStore": {
+                            "name": f"{db_name}",
+                            "connectionParameters": {
+                                "entry": [
+                                    {"@key":"host","$":HOST},
+                                    {"@key":"port","$":PORT},
+                                    {"@key":"database","$":f"{db_name}"},
+                                    {"@key":"user","$":USER},
+                                    {"@key":"passwd","$":PASSWORD},
+                                    {"@key":"dbtype","$":"postgis"}
+                                ]
+                            }
+                        }
+                    }
+                    r = requests.post(formatted_url, data = json.dumps(datas), auth =HTTPBasicAuth(GEOSERVER_LOG, GEOSERVER_PASS), headers = r_headers) 
+                    if r.status_code == 201: 
+                        print("A datastore has been сreated!")
+                    else:
+                        print("A datastore has already created")
+
+                    return render(request, self.template)
                 except Exception:
-                    pass
+                    print("Не удалось создать базу в постгре или в геосервере")
+                    return render(request, "accounts/error_page.html")
+            else:
+                return render(request, "accounts/error_page.html")
 
 
     @method_decorator(login_required)
@@ -111,89 +182,8 @@ class CreateGetDataStore(View):
                 except Exception:
                     print("Something goes wrong")
             
-        return render(request, self.template)
+        return render(request, self.template)  
 
-
-@csrf_exempt
-@login_required(login_url="accounts:login")
-def create_datastore(request):
-    if request.method == "POST":
-        db_name = request.POST.get("db_name")
-        
-        try:
-            con = psycopg2.connect( database="gis_layers" ,user="postgres", password="admin", host="127.0.0.1", port="5432")
-            print("Connected")
-        except Exception:
-            print("err")
-        
-        con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        
-        cursor = con.cursor()
-        
-        sqlCreateDatabase = "CREATE DATABASE "+db_name+";"
-
-        cursor.execute(sqlCreateDatabase)
-        print("DataBase created")
-        
-        try:
-            con = psycopg2.connect( database=db_name ,user="postgres", password="admin", host="127.0.0.1", port="5432")
-            print(f"Connected to {db_name} DB")
-        except Exception:
-            print("Unable to connect to the database")
-        con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        
-        cursor = con.cursor()    
-        ext = "postgis"
-        ext_query = "CREATE EXTENSION "+ext+";"
-
-        try:
-            cursor.execute(ext_query)
-            print("ext created")
-        except:
-            print("ext didnt creat")
-        
-        con.commit()
-        cursor.close()
-        con.close()
-        
-        logged_user = request.user
-        if logged_user is not None:
-            try:
-                ws = logged_user
-                r_url = "http://localhost:8080/geoserver/rest/workspaces/{}/datastores"
-                formatted_url = r_url.format(ws)
-                r_headers = {'Content-type': 'application/json',  # Определение типа данных
-                        'Accept': 'text/plain',
-                        'Content-Encoding': 'utf-8'}
-                datas = {
-                    "dataStore": {
-                        "name": f"{db_name}",
-                        "connectionParameters": {
-                            "entry": [
-                                {"@key":"host","$":"localhost"},
-                                {"@key":"port","$":"5432"},
-                                {"@key":"database","$":f"{db_name}"},
-                                {"@key":"user","$":"postgres"},
-                                {"@key":"passwd","$":"admin"},
-                                {"@key":"dbtype","$":"postgis"}
-                            ]
-                        }
-                    }
-                }
-                r = requests.post(formatted_url, data = json.dumps(datas), auth =HTTPBasicAuth('admin', 'geoserver'), headers = r_headers) 
-                if r.status_code == 201:
-                    print("A datastore has been сreated!")
-                else:
-                    print("A datastore has already created")
-                    
-            except Exception:
-                print("Couldnt create a datastore in the geoserver")
-        else:
-            print(f"Creating datastore for this workspace is unable")
-             
-        return render(request, "accounts/add_DB.html")
-        
-    return render(request, "accounts/add_DB.html")
 
 
 @csrf_exempt
