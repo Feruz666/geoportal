@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'materialize_css/materialize.css'%}">
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cuprum&display=swap" rel="stylesheet">
+    <script src="{% static 'javascript/scripts.js' %}"></script>
+    <script src="{% static 'materialize_js/materialize.js' %}"></script>
+    <title>
+      Neuromaps
+    </title>
+    <style>
+
+        body{
+            background-attachment: fixed;
+        }
+
+        html, body {
+        height: 100%;
+        }
+
+        body{
+            font-family: 'Zen Dots', cursive;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        ::-webkit-scrollbar{
+            width: 0;
+        }
+
+        #scrollPath{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        #progressbar{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 10px;
+            background: linear-gradient(to top, #008aff, #00ffe7);
+            animation: animate 5s linear infinite;
+        }
+        @keyframes animate {
+            0%, 100%
+            {
+                filter: hue-rotate(0deg);
+            }
+            50%
+            {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        #progressbar::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #008aff, #00ffe7);
+            filter: blur(10px);
+        }
+
+        #progressbar::after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #008aff, #00ffe7);
+            filter: blur(30px);
+        }
+       
+        #vanta-canvas{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container{
+            backdrop-filter: blur(3px);
+            border-color: rgb(175, 2, 255);
+            border-width: 5px;
+            padding-top: 10%;
+        }
+
+        a{
+            opacity: 1;
+        }
+        nav{
+            padding: 0px 100px;
+            background-color: rgba(0,0,0,0);
+        }
+        h1{
+            font-size: 105px;
+            background: -webkit-linear-gradient(rgb(248, 46, 46), rgb(183, 0, 255));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        h2{
+            font-size: 65px;
+            background: -webkit-linear-gradient(rgb(248, 46, 46), rgb(183, 0, 255));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        ul li a{
+            font-size: 24px;
+        }
+        li{
+            font-family: 'Cuprum', sans-serif;
+
+        }
+
+        #section_about_project{
+            padding-top: 50%;
+        }
+        p{
+            font-family: 'Cuprum', sans-serif;
+        }
+
+        #centerlogo{
+            font-family: 'Zen Dots', cursive;
+        }
+
+        
+        .btn-large{
+            font-size: 25px;
+        }
+
+        #section_about_project p{
+            font-size: 35px;
+        }
+
+        #section_services p{
+            font-size: 35px;
+        }
+
+        #canvas-basic {
+            width: 80%;
+            height: 500px;
+        }
+
+        footer{
+            background-color: rgba(0,0,0,0);
+        }
+
+        #section_maps{
+            padding-top: 45%;
+        }
+
+
+        #map { 
+            height: 700px;
+            width: 100%; 
+        }
+
+    </style>
+  </head>
+  <body>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    
+    <div id="vanta-canvas"></div>
+    <div id="progressbar"></div>
+    <div id="scrollPath"></div>
+    
+
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <nav>
+                    <div class="nav-wrapper">
+                      <a href="#" class="brand-logo">neuromaps</a>
+                      <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#about">О проекте</a></li>
+                        <li><a href="#maps">Карты</a></li>
+                        <li><a href="#services">Сервисы</a></li>
+                      </ul>
+                    </div>
+                  </nav>
+            </div>
+        </div>   
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col s12">
+                <div id="mainlogo">
+                    <h1 class="center-align purple-text text-accent-2">NEUROMAPS</h1>
+                    <p>
+                        <h4 id="mainlogoabs" class="white-text">Облачная ГИС для фитосанитарного мониторинга в сельском и лесном хозяйстве</h4>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col s12">
+                <h3>
+                    <p id="centerlogo" class="center-align">
+                        <a href="#maps" class="purple btn-large purple pulse">GET STARTED</a>
+                    </p>
+                </h3>
+            </div>
+        </div>
+        
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div id="section_maps">
+            <div class="row">
+                <div class="col s12">
+                <div>
+                    <h2 class="center-align white-text">Карты</h2>
+                    <div id="maps" class="section scrollspy">
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row center-align">
+                <div class="col s12">
+                    <p class="white-text">
+                        <div id="map"></div>
+                        
+                        <div class="row">
+                            <div class="col s12">
+                                <h3>
+                                    <p class="center-align">
+                                        <a href="{% url 'main:leaflet' %}" class="purple btn-large purple pulse">Подробнее</a>
+                                    </p>
+                                </h3>
+                            </div>
+                        </div>
+                        
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div id="section_services">
+            <div class="row">
+                <div class="col s12">
+                <div id="services" class="section scrollspy">
+                    <h2 class="center-align white-text">Сервисы</h2>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <p class="white-text center-align">
+                        Для реализации своих целей, нам необходимо получать снимки над географическими местностями, для этого мы используем беспилотные летающие аппараты оснащенные специальными камерами. 
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div>
+            <div class="row white valign-wrapper">
+                <div class="col s6 offset-s1">
+                    <img class="materialboxed" style="margin-bottom: 63px;" width="513" src="{% static 'images/x_bio_logo/logoxbio.jpg' %}">
+                </div>
+                <div class="col s6">
+                    <img class="materialboxed" width="400" src="{% static 'images/x_bio_logo/logotgu.jpg' %}">
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <footer style="background-color: rgba(0,0,0,0);" class="page-footer">
+            
+              <div class="row center-align" >
+                <div class="col l6 s12 offset-2" >
+                  <h5 class="grey-text text-lighten-4">Институт экологической и сельскохозяйственной биологии ТюмГУ</h5>
+                  <h5 class="grey-text text-lighten-4">Тюменский Государственный Университет</h5>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                  <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://www.utmn.ru/x-bio/">X-BIO</a></li>
+                    <br>
+                    <li><a class="grey-text text-lighten-3" href="https://www.utmn.ru/">ТюмГУ</a></li>
+                  </ul>
+                </div>
+              </div>
+          </footer>
+
+    </div>
+
+
+    <script>
+        let progress = document.getElementById('progressbar');
+        let totalHeight = document.body.scrollHeight - window.innerHeight;
+        window.onscroll = function(){
+            let progressHeight = (window.pageYOffset / totalHeight) * 100;
+            progress.style.height = progressHeight + "%";
+        }
+    </script>
+
+    <script src="{% static 'js/three.r119.min.js'  %}"></script>
+    <script src="{% static 'js/vanta.globe.min.js' %}"></script>
+    <script>
+        VANTA.GLOBE({
+        el: "#vanta-canvas",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00
+        });
+
+    </script>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidHJvbXNvIiwiYSI6ImNrbHFlaml1eDFiczUybmw2dHBmaXV5cHQifQ.dMP0Ehf9s1AWEmvgYJZdcg';
+        var map = new mapboxgl.Map({
+        container: 'map', // container id
+        // style: 'mapbox://styles/mapbox/satellite-v9', // style URL
+        style: 'mapbox://styles/mapbox/dark-v10', // style URL
+        center: [65.52695095539093,
+          57.158274587344636], // starting position [lng, lat]
+        zoom: 12 // starting zoom
+        });
+    </script>
+    
+  </body>
+</html>

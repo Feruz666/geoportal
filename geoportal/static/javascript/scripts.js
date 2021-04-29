@@ -1,15 +1,19 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.collapsible');
-    var instances = M.Collapsible.init(elems, {
-        accordion: true,
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.scrollspy');
+    var instances = M.ScrollSpy.init(elems, {
+      throttle: 100, 
     });
   });
 
-  mapboxgl.accessToken = 'pk.eyJ1IjoidHJvbXNvIiwiYSI6ImNrbHFlaml1eDFiczUybmw2dHBmaXV5cHQifQ.dMP0Ehf9s1AWEmvgYJZdcg';
-  var map = new mapboxgl.Map({
-  container: 'map', // container id
-  style: 'mapbox://styles/mapbox/streets-v11', // style URL
-  center: [65.5268919467926,
-    57.15829204273426], // starting position [lng, lat]
-  zoom: 15 // starting zoom
+  focusMethod = function getFocus() {
+    document.getElementById("mainlogo").focus();
+  }
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.materialboxed');
+    var instances = M.Materialbox.init(elems, {
+      inDuration: 275,
+      outDuration: 200,
+    });
   });
